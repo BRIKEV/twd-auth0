@@ -1,4 +1,4 @@
-import { useAuth0 } from '@auth0/auth0-react';
+import { useLoaderData } from 'react-router';
 import LoginButton from '../../components/LoginButton';
 import LogoutButton from '../../components/LogoutButton';
 import Profile from '../../components/Profile';
@@ -10,48 +10,10 @@ import {
   CardHeader,
   CardTitle,
 } from '../../components/ui/card';
+import type { loaderApp } from './loader';
 
 function App() {
-  const { isAuthenticated, isLoading, error } = useAuth0();
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-white">
-        <div className="flex h-full min-h-screen items-center justify-center px-6">
-          <div className="flex items-center gap-3 text-lg font-medium">
-            <span className="grid size-12 place-items-center rounded-full border border-white/10 bg-white/5">
-              <span className="size-6 animate-spin rounded-full border-2 border-white/20 border-t-white" />
-            </span>
-            Loading your session...
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-white">
-        <div className="flex h-full min-h-screen items-center justify-center px-6">
-          <Card className="w-full max-w-xl border-red-200/40 bg-red-500/5 text-white shadow-lg shadow-red-500/10 backdrop-blur">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-red-100">
-                Oops! Something went wrong
-              </CardTitle>
-              <CardDescription className="text-red-100/80">
-                We hit a snag while connecting to Auth0.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="rounded-lg border border-red-300/30 bg-red-500/10 px-4 py-3 text-sm text-red-50">
-                {error.message}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    );
-  }
+  const { user, isAuthenticated} = useLoaderData<typeof loaderApp>();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-white">
@@ -103,7 +65,7 @@ function App() {
                 </div>
                 <div className="rounded-xl border border-white/10 bg-white/5 p-4 shadow-inner shadow-white/5">
                   <div className="text-sm text-slate-200/70">Your profile</div>
-                  <Profile />
+                  <Profile name={user.name} email={user.email} picture={user.picture} />
                 </div>
               </div>
             ) : (

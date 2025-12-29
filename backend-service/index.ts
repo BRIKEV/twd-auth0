@@ -1,0 +1,43 @@
+import express from "express";
+import path from "path";
+import { sessionMiddleware } from "./session";
+import { authRouter } from "./auth";
+import { env } from "./env";
+
+const app = express();
+
+app.use(sessionMiddleware);
+app.use(express.json());
+
+/**
+ * Auth routes
+ */
+app.use("/auth", authRouter);
+
+/**
+ * Session user info endpoint
+ */
+app.get("/api/me", (req, res) => {
+  if (!req.session.user) {
+    return res.sendStatus(401);
+  }
+
+  res.json(req.session.user);
+});
+
+
+/**
+ * Serve frontend (prod)
+ */
+app.use(express.static("dist"));
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("dist"));
+  app.get("*", (_req, res) => {
+    res.sendFile(path.resolve("dist/index.html"));
+  });
+}
+
+app.listen(env.port, () => {
+  console.log(`BFF running on http://localhost:${env.port}`);
+});
