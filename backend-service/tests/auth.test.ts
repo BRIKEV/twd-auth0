@@ -1,11 +1,10 @@
-import { beforeAll, describe, expect, it } from "vitest";
-import app from "../app";
-import supertest from "supertest";
-import TestAgent from "supertest/lib/agent";
+import { beforeAll, describe, expect, it, beforeEach } from "vitest";
 import nock from "nock";
+import supertest from "supertest";
+import type TestAgent from "supertest/lib/agent";
+import app from "../app";
 import { env } from "../env";
 import { authResponseMock } from "./mocks/authResponse";
-import { beforeEach } from "node:test";
 
 describe("auth tests", () => {
   let request: TestAgent;
