@@ -1,9 +1,9 @@
 import express from "express";
 import path from "path";
 import { sessionMiddleware } from "./session";
-import { authRouter } from "./auth";
+import { authRouter } from "./routes/auth";
 import { env } from "./env";
-import { notesRouter } from "./notes";
+import { notesRouter } from "./routes/notes";
 
 const app = express();
 
