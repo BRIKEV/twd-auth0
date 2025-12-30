@@ -1,14 +1,23 @@
-export async function rootLoader() {
-  const res = await fetch("/api/me", {
-    credentials: "include",
-  });
+import { getSession } from "@/api/auth";
+import { fetchNotes } from "@/api/notes";
 
-  if (res.status === 401) {
-    return { user: {}, isAuthenticated: false };
+export async function rootLoader() {
+  const session = await getSession();
+
+  if (!session.isAuthenticated) {
+    return { user: {}, isAuthenticated: false, notes: [] };
+  }
+
+  let notes: Awaited<ReturnType<typeof fetchNotes>> = [];
+  try {
+    notes = await fetchNotes();
+  } catch {
+    notes = [];
   }
 
   return {
-    user: await res.json(),
+    user: session.user,
     isAuthenticated: true,
+    notes,
   };
 }
