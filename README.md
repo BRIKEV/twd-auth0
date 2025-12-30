@@ -1,25 +1,6 @@
 # TWD Auth0 – A Modern Learning Project for Auth & Testing Innovation
 
-> **Test While Developing (TWD)**: An in-browser testing approach that validates full user workflows in real time. Combined with a secure BFF (Backend For Frontend) auth pattern, this project demonstrates production-grade authentication and testing practices.
-
-## 🚀 What Makes This Special
-
-This is **not a typical tutorial project**. It's a working example of:
-
-1. **Secure OAuth2 with Auth0** – Using a BFF pattern to keep tokens server-side in HttpOnly cookies.
-2. **Protected React Router Loaders** – Redirecting unauthenticated users to `/login` before data loads.
-3. **Real Database Integration** – SQLite + Drizzle ORM with authenticated data access (notes tied to users).
-4. **TWD Testing Philosophy** – Tests run in the browser, mock requests inline, and validate real user workflows at 92% code coverage.
-5. **Type-Safe API Layer** – Axios with typed helpers for session, notes, and auth operations.
-
-## 🎯 Why This Matters for Learning
-
-Most tutorials teach auth **in isolation**:
-- "Here's how to add a login button."
-- "Here's how to mock the session."
-
-**This project shows the full picture**:
-- Login redirects you to Auth0 → callback stores session cookie → protected pages check session → notes API respects user ownership → tests validate the entire flow **in the browser**.
+**Test While Developing (TWD)**: An in-browser testing approach that validates full user workflows in real time. Combined with a secure BFF (Backend For Frontend) auth pattern, this project demonstrates production-grade authentication and testing practices.
 
 ## 📚 Architecture
 
