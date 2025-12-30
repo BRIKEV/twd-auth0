@@ -10,5 +10,7 @@ export const env = {
     redirectUri: process.env.AUTH0_REDIRECT_URI!,
   },
 
+  databaseUrl: process.env.DATABASE_URL ?? "file:./local.sqlite",
+
   sessionSecret: process.env.SESSION_SECRET ?? "dev-secret",
 };

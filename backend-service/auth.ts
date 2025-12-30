@@ -87,7 +87,7 @@ authRouter.post("/logout", (req, res) => {
   req.session.destroy(() => {
     const params = new URLSearchParams({
       client_id: env.auth0.clientId,
-      returnTo: "http://localhost:5173",
+      returnTo: "http://localhost:5173/",
     });
 
     res.redirect(

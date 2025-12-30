@@ -3,6 +3,7 @@ import path from "path";
 import { sessionMiddleware } from "./session";
 import { authRouter } from "./auth";
 import { env } from "./env";
+import { notesRouter } from "./notes";
 
 const app = express();
 
@@ -24,6 +25,11 @@ app.get("/api/me", (req, res) => {
 
   res.json(req.session.user);
 });
+
+/**
+ * Notes (protected)
+ */
+app.use("/api/notes", notesRouter);
 
 
 /**
