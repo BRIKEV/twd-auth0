@@ -2,7 +2,6 @@ import express from "express";
 import path from "path";
 import { sessionMiddleware } from "./session";
 import { authRouter } from "./routes/auth";
-import { env } from "./env";
 import { notesRouter } from "./routes/notes";
 
 const app = express();
@@ -44,6 +43,4 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-app.listen(env.port, () => {
-  console.log(`BFF running on http://localhost:${env.port}`);
-});
+export default app;
