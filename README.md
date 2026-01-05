@@ -20,7 +20,7 @@ backend-service/
     └── notes.test.ts    # Protected API + user isolation
 ```
 
-**Key insight**: The session cookie is **HttpOnly** and **SameSite=Lax**, so the frontend never sees tokens. The loader just calls `/auth/session` to check if authenticated.
+**Key insight**: The session cookie is **HttpOnly** and **SameSite=Lax**, so the frontend never sees tokens. The loader just calls `/api/me` to check if authenticated.
 
 ### Frontend (React Router v7)
 
@@ -101,7 +101,7 @@ describe("Notes App", () => {
 ```
 GET / (no session cookie)
   ↓
-loaderApp checks /auth/session → 401
+loaderApp checks /api/me → 401
   ↓
 Redirect to /login
 ```
@@ -109,7 +109,7 @@ Redirect to /login
 ### 2. User Clicks "Log In"
 
 ```
-POST /auth/login
+GET /auth/login
   ↓
 Redirect to Auth0 (with client_id, redirect_uri, state)
 ```
@@ -131,7 +131,7 @@ Redirect to / (with session cookie)
 ```
 GET / (with session cookie)
   ↓
-loaderApp calls /auth/session → 200 + user data
+loaderApp calls /api/me → 200 + user data
   ↓
 loaderApp calls /api/notes → 200 + user's notes
   ↓
